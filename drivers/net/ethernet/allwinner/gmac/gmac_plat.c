@@ -54,6 +54,13 @@ static int gmac_system_init(struct gmac_priv *priv)
 		pr_warning("twi0 request gpio fail!\n");
 		ret = -1;
 	}
+
+	priv->phy_power_en = gpio_request_ex("gmac_phy_power", "gmac_phy_power_en");
+        if(!priv->phy_power_en) {
+                pr_warning("phy power enable request gpio fail!\n");
+                ret = -1;
+        }
+
 #endif
 	return ret;
 }

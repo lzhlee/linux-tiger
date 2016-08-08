@@ -800,6 +800,18 @@ static void gmac_check_ether_addr(struct gmac_priv *priv)
         pr_info("%s: device MAC address %pM\n", priv->ndev->name, priv->ndev->dev_addr);
 }
 
+void gmac_phy_power_en(struct gmac_priv *priv)
+{
+    if(!priv) return;
+
+    if (priv->phy_power_en){
+        gpio_direction_output(priv->phy_power_en,1);
+        mdelay(200);
+    }
+
+    return;
+}
+
 /**
  *  gmac_open - open entry point of the driver
  *  @dev : pointer to the device structure.
@@ -813,6 +825,8 @@ static int gmac_open(struct net_device *ndev)
 {
 	struct gmac_priv *priv = netdev_priv(ndev);
 	int ret;
+
+	gmac_phy_power_en(priv);
 
 	gmac_clk_ctl(priv, 1);
 	//gmac_check_ether_addr(priv);

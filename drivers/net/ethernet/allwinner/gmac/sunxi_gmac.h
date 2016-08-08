@@ -133,7 +133,7 @@ struct gmac_priv {
 #else
 	int gpio_cnt;
 	unsigned int gpio_handle;
-
+	unsigned int phy_power_en;
 #endif
 #ifndef CONFIG_GMAC_CLK_SYS
 	void __iomem *clkbase;
